@@ -24,12 +24,12 @@ function PublicSite() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Layout />} />
-        <Route path="/About" element={<About />} />
+        <Route path="/about" element={<About />} />
         <Route path="/event" element={<Event2 />} />
-        <Route path="/Gallery" element={<Gallerymain />} />
-        <Route path="/Sermon" element={<Sermonmain />} />
-        <Route path="/Contact" element={<Contactmain />} />
-        <Route path="/Event2" element={<Event2 />} />
+        <Route path="/gallery" element={<Gallerymain />} />
+        <Route path="/sermon" element={<Sermonmain />} />
+        <Route path="/contact" element={<Contactmain />} />
+        <Route path="/event2" element={<Event2 />} />
       </Routes>
       <Footer />
     </>

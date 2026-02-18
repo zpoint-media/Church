@@ -39,15 +39,19 @@ export default function Verse() {
   const [slides, setSlides] = useState([]);
   const [index, setIndex] = useState(0);
 
-  const weekday = new Date().getDay();
-  const refs = WEEKDAY_VERSES[weekday];
-  const cacheKey = `weekday-verses-${weekday}`;
-
   /* FETCH VERSES WITH OFFLINE FALLBACK */
   useEffect(() => {
+    const weekday = new Date().getDay();
+    const refs = WEEKDAY_VERSES[weekday];
+    const cacheKey = `weekday-verses-${weekday}`;
+
     const cached = localStorage.getItem(cacheKey);
     if (cached) {
-      setSlides(JSON.parse(cached));
+      try {
+        setSlides(JSON.parse(cached));
+      } catch {
+        setSlides(OFFLINE_FALLBACK);
+      }
       return;
     }
 
@@ -77,7 +81,7 @@ export default function Verse() {
     }
 
     fetchVerses();
-  }, [cacheKey, refs]);
+  }, []); // runs once on mount only
 
   /* AUTO SLIDE (RESTORED) */
   useEffect(() => {

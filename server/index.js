@@ -11,13 +11,25 @@ const PORT = process.env.PORT || 5000;
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
 app.use(cors({
-  origin: [
-    "http://localhost:5173", 
-    "http://localhost:3000", 
-    "http://localhost:4173",
-    "https://mafoluku1.netlify.app",
-    "https://aafsuluku1.netlify.app" // your Netlify URL
-  ],
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    
+    const allowed = [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "http://localhost:4173",
+      "https://mafoluku1.netlify.app",
+      "https://aafsuluku1.netlify.app",
+    ];
+    
+    // Also allow any *.netlify.app subdomain
+    if (allowed.includes(origin) || /\.netlify\.app$/.test(origin)) {
+      return callback(null, true);
+    }
+    
+    return callback(new Error("Not allowed by CORS"));
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: "10mb" }));

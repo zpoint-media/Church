@@ -20,8 +20,8 @@ export default function Navbar() {
     { name: "About", path: "/about" },
     { name: "Event", path: "/event" },
     { name: "Gallery", path: "/gallery" },
-    { name: "Sermons", path: "/Sermon" },
-    { name: "Contact", path: "/Contact" },
+    { name: "Sermons", path: "/sermon" },
+    { name: "Contact", path: "/contact" },
   ];
 
   const sidebarMenu = [

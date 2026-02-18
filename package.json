@@ -5,13 +5,15 @@
   "type": "module",
   "scripts": {
     "postinstall": "cd server && npm install",
-    "dev": "concurrently \"npm run server\" \"vite\" --names \"API,VITE\" --prefix-colors \"yellow,cyan\"",
-    "server": "cd server && node index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\" --names \"API,VITE\" --prefix-colors \"yellow,cyan\" --kill-others-on-fail",
+    "server": "cd server && npx nodemon index.js",
+    "client": "vite",
     "dev:only": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "seed": "cd server && node seed.js"
+    "seed": "cd server && node seed.js",
+    "start": "npm run dev"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -36,6 +38,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "nodemon": "^3.1.3",
     "vite": "^7.2.4"
   }
 }
