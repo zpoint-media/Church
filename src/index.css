@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* Admin Login — mobile uses the same flat bg as the desktop admin panel */
+.admin-login-bg {
+  background: #090e1c;
+}
+
+@media (min-width: 1024px) {
+  .admin-login-bg {
+    background: linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 50%, #0a0f1e 100%);
+  }
+}
+
+ 
+ 

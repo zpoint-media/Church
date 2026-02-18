@@ -1,0 +1,242 @@
+"use client";
+import Map from "../pages/map";
+import React, { useRef, useState, useEffect } from "react";
+import {
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaUser,
+  FaStar,
+  FaPen,
+  FaFacebookF,
+  FaWhatsapp,
+  FaYoutube,
+  FaInstagram,
+} from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import emailjs from "@emailjs/browser";
+import { apiFetch } from "../utils/api";
+
+const SOCIAL_LINKS = [
+  {
+    name: "Facebook",
+    href: "https://web.facebook.com/profile.php?id=100063764881610",
+    icon: FaFacebookF,
+    color: "hover:bg-[#1877F2]",
+  },
+  {
+    name: "Whatsapp",
+    href: "https://wa.me/",
+    icon: FaWhatsapp,
+    color: "hover:bg-[#25D366]",
+  },
+  {
+    name: "Youtube",
+    href: "https://www.youtube.com/channel/UCRL2oMXIoUajvveVrMaCz8Q",
+    icon: FaYoutube,
+    color: "hover:bg-[#FF0000]",
+  },
+  {
+    name: "Gmail",
+    href: "mailto:zpointsportmedia@gmail.com",
+    icon: MdEmail,
+    color: "hover:bg-[#EA4335]",
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/cccmaf1modelparish/",
+    icon: FaInstagram,
+    color: "hover:bg-[#E1306C]",
+  },
+];
+
+function Contactmain() {
+  const form = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState({ type: "", message: "" });
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    apiFetch("/content/contactPage")
+      .then((data) => {
+        if (data) setContent(data);
+      })
+      .catch((err) =>
+        console.error("Failed to load contact page content:", err)
+      );
+  }, []);
+
+  const showToast = (type, message) => {
+    setToast({ type, message });
+    setTimeout(() => setToast({ type: "", message: "" }), 4000);
+  };
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    emailjs
+      .sendForm(
+        "service_ta9eudo",
+        "template_5m927yt",
+        form.current,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        () => {
+          setLoading(false);
+          form.current.reset();
+          showToast(
+            "success",
+            content?.successMessage || "Message sent successfully!"
+          );
+        },
+        (error) => {
+          console.error("EMAILJS ERROR:", error);
+          setLoading(false);
+          showToast(
+            "error",
+            content?.errorMessage ||
+              error?.text ||
+              "Failed to send message. Try again later."
+          );
+        }
+      );
+  };
+  return (
+    <>
+      {/* HERO */}
+    <section
+        className="relative h-37.5 mt-25 mb-17.5 bg-center bg-cover"
+        style={{ backgroundImage: "url('/Versebg.webp')" }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 h-full px-8 md:px-16 flex items-center justify-between text-white">
+          <h1 className="text-4xl md:text-5xl font-serif">{content?.heroTitle || "Contact"}</h1>
+          <div className="bg-black px-5 py-2 text-sm flex gap-2">
+            <span className="text-gray-300">{content?.breadcrumbHome || "Home"}</span>
+            <span className="text-gray-400">›</span>
+            <span className="text-yellow-500">{content?.breadcrumbCurrent || "Contact"}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* MAP + INFO */}
+           <Map/>
+
+      
+            {/* SOCIAL ICONS */}
+            <div className="mt-120">
+
+             
+            <div className="text-center mb-14">
+          <p className="text-yellow-500 italic mb-2">{  "Socials"}</p>
+          <h2 className="text-4xl font-serif text-blue-900">{ "Social Media Handles"}</h2>
+          <div className="w-20 h-[2px] bg-yellow-500 mx-auto mt-4" />
+        </div>
+          <div className="flex justify-center gap-4  ">
+            
+            {SOCIAL_LINKS.map(({ name, href, icon: Icon, color }) => (
+              <a
+                key={name}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={name}
+                className={`w-55 h-11 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 bg-white transition-all duration-300 ${color} hover:text-white hover:border-transparent hover:scale-110 shadow-sm`}
+              >
+                <Icon size={18} />
+              </a>
+            ))}
+          </div>
+          
+            </div>
+
+      {/* CONTACT FORM */}
+      <section className="max-w-6xl   mx-auto mt- px-8 py-20    ">
+        <div className="text-center mb-14">
+          <p className="text-yellow-500 italic mb-2">{content?.sectionLabel || "Contact Us?"}</p>
+          <h2 className="text-4xl font-serif text-blue-900">{content?.sectionHeading || "Get in Touch"}</h2>
+          <div className="w-20 h-[2px] bg-yellow-500 mx-auto mt-4" />
+        </div>
+
+        <form ref={form} onSubmit={sendEmail} className="space-y-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="relative">
+              <input
+                name="user_name"
+                placeholder={content?.formNamePlaceholder || "Full Name*"}
+                required
+                className="w-full border border-gray-300 px-6 py-4 pr-12 text-sm
+                focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200
+                outline-none transition"
+              />
+              <FaUser className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
+            </div>
+
+            <div className="relative">
+              <input
+                name="user_email"
+                type="email"
+                placeholder={content?.formEmailPlaceholder || "Email*"}
+                required
+                className="w-full border border-gray-300 px-6 py-4 pr-12 text-sm
+                focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200
+                outline-none transition"
+              />
+              <FaEnvelope className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
+            </div>
+
+            <div className="relative">
+              <input
+                name="subject"
+                placeholder={content?.formSubjectPlaceholder || "Subject"}
+                className="w-full border border-gray-300 px-6 py-4 pr-12 text-sm
+                focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200
+                outline-none transition"
+              />
+              <FaStar className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
+            </div>
+          </div>
+
+          <div className="relative">
+            <textarea
+              name="message"
+              placeholder={content?.formMessagePlaceholder || "Message"}
+              className="w-full h-48 border border-gray-300 px-6 py-4 pr-12 text-sm resize-none
+              focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200
+              outline-none transition"
+            />
+            <FaPen className="absolute right-4 top-5 text-gray-400" />
+          </div>
+
+          <div className="flex -mb-140 lg:-mb-110 justify-center">
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-[#E3AF4E] text-white font-semibold px-14 py-4 rounded-full
+              flex items-center gap-3 hover:bg-yellow-600 transition disabled:opacity-70"
+            >
+              {loading && (
+                <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              )}
+              {content?.submitButtonText || "SEND NOW!"}
+            </button>
+          </div>
+        </form>
+      </section>
+
+      {/* TOAST */}
+      {toast.message && (
+        <div
+          className={`fixed bottom-6  right-6 px-6 py-4 rounded shadow-lg text-white z-50
+          ${toast.type === "success" ? "bg-green-600" : "bg-red-600"}`}
+        >
+          {toast.message}
+        </div>
+      )}
+    </>
+  );
+}
+
+export default Contactmain;
