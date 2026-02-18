@@ -19,7 +19,7 @@ app.use(cors({
       "http://localhost:5173",
       "http://localhost:3000",
       "http://localhost:4173",
-      "https://mafoluku1.netlify.app",
+      "https://mafoluku.netlify.app",
       "https://aafsuluku1.netlify.app",
     ];
     
