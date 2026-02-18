@@ -28,7 +28,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
    | Variable Name | Value | Example |
    |--------------|-------|---------|
-   | `MONGODB_URI` | Your NEW MongoDB connection string | `mongodb+srv://newuser:newpassword@cluster0.xxx.mongodb.net/church-cms` |
+   | `MONGODB_URI` | Your NEW MongoDB connection string | `mongodb+srv://kolade443_db_user:mafoluku1@cluster0.xtnsgu0.mongodb.net/church-cms` |
    | `JWT_SECRET` | Your NEW JWT secret | `a7f3d9e2b1c4a8f6d3e9b2c1a7f4d8e3b9c2a1f7d4e8b3c9a2f1d7e4b8c3a9` |
    | `ADMIN_EMAIL` | Your admin email | `admin@yourchurch.com` |
    | `ADMIN_PASSWORD` | Your admin password | Use a strong password |
@@ -37,7 +37,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ### 🧹 Step 3: Clean Your Git History (REQUIRED)
 
 Since the secrets were committed to your repository, they exist in your Git history. You must clean this:
-
+mongodb+srv://kolade443_db_user:mafoluku1@cluster0.xtnsgu0.mongodb.net/?appName=Cluster0
 ```bash
 # Install BFG Repo-Cleaner
 # Download from: https://rtyley.github.io/bfg-repo-cleaner/
