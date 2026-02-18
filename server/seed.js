@@ -300,17 +300,8 @@ async function seed() {
     console.log("  ℹ  Admin user already exists, skipping");
   }
 
-  console.log("\n🎉  Database seeded successfully!");
-  process.exit(0);
-}
-
-seed().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
-
   // ── ABOUT PAGE ────────────────────────────────────────────────────────
-  {
+  await Content.findOneAndUpdate({ section: "aboutPage" }, {
     section: "aboutPage",
     aboutPage: {
       heroTitle: "About Us",
@@ -335,10 +326,11 @@ seed().catch((err) => {
       ],
       quoteText: '<span class="text-amber-400 font-semibold">"Mafoluku Model Parish 1</span> is a church where prayer is a lifestyle, the Word of God is central, and love is lived out daily. We believe that lives are transformed through the power of the <span class="text-amber-400">Holy Spirit</span>, and that every believer is called to grow, serve, and walk faithfully with <span class="text-amber-400">God</span>."',
     },
-  },
+  }, { upsert: true, new: true });
+  console.log("  ✓  Seeded: aboutPage");
 
   // ── CONTACT PAGE ──────────────────────────────────────────────────────
-  {
+  await Content.findOneAndUpdate({ section: "contactPage" }, {
     section: "contactPage",
     contactPage: {
       heroTitle: "Contact Us",
@@ -354,10 +346,11 @@ seed().catch((err) => {
       successMessage: "Message sent successfully!",
       errorMessage: "Failed to send message. Try again later.",
     },
-  },
+  }, { upsert: true, new: true });
+  console.log("  ✓  Seeded: contactPage");
 
   // ── SERMONS PAGE ──────────────────────────────────────────────────────
-  {
+  await Content.findOneAndUpdate({ section: "sermonsPage" }, {
     section: "sermonsPage",
     sermonsPage: {
       heroTitle: "Church Sermons",
@@ -380,10 +373,11 @@ seed().catch((err) => {
         { title: "Walking in Love", preacher: "Pastor Rebecca Joy", date: "March 31, 2025", desc: "Living a life defined by love.", audio: "/audio/sermon12.mp3" },
       ],
     },
-  },
+  }, { upsert: true, new: true });
+  console.log("  ✓  Seeded: sermonsPage");
 
   // ── EVENTS PAGE ───────────────────────────────────────────────────────
-  {
+  await Content.findOneAndUpdate({ section: "eventsPage" }, {
     section: "eventsPage",
     eventsPage: {
       heroTitle: "Events",
@@ -407,4 +401,14 @@ seed().catch((err) => {
         { date: "June 16, 2025", category: "Spiritual Growth", title: "Growing Deeper in Christ", desc: "A call to maturity and consistency in your walk with God.", author: "Pastor Daniel" },
       ],
     },
-  },
+  }, { upsert: true, new: true });
+  console.log("  ✓  Seeded: eventsPage");
+
+  console.log("\n🎉  Database seeded successfully!");
+  process.exit(0);
+}
+
+seed().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
