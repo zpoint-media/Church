@@ -75,7 +75,7 @@ export default function Footer() {
     : [];
 
   return (
-    <footer className="relative w-full bg-black text-white mt-32">
+    <footer className="lg:mt-110 mt-140 relative w-full bg-black text-white mt-32">
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-12">
 
         {/* Social Links */}
