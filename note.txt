@@ -1,3 +1,0 @@
-HeH1qUdbXnCUdIHQ
-
-mongodb+srv://kolade443_db_user:HeH1qUdbXnCUdIHQ@cluster0.xtnsgu0.mongodb.net/?appName=Cluster0
