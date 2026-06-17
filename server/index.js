@@ -22,6 +22,8 @@ app.use(cors({
       "https://mafoluku.netlify.app",
       "https://mafoluku1.netlify.app",
       "https://aafsuluku1.netlify.app",
+      "https://cccmafolukumodelparish1.org.ng",
+      "https://www.cccmafolukumodelparish1.org.ng",
     ];
 
     // Allow any *.netlify.app subdomain
