@@ -72,7 +72,7 @@ export default function EventsSection() {
       <div className="mt-90 sm:mt-30 flex flex-col items-center gap-6">
        <NavLink
         to="/event"
-       className="w-full sm:w-auto mt-5 lg:mt-0 px-10 py-4 rounded-full bg-[#003F8C] text-white font-semibold text-sm hover:bg-[#0052B4] transition text-center"
+       className="w-full sm:w-auto mt-50 lg:mt-0 px-10 py-4 rounded-full bg-[#003F8C] text-white font-semibold text-sm hover:bg-[#0052B4] transition text-center"
        >
         VIEW ALL EVENTS
        </NavLink>
